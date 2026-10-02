@@ -2,6 +2,22 @@
 
 PortableScreenRecorder is a local-only Windows desktop recorder for a single display, all attached displays, or a selected display region. It captures the pointer optionally, records microphone and/or Windows playback audio, supports pause/resume, and finalizes H.264/AAC MP4 files.
 
+## Install on Windows
+
+Download and run **[install.exe](https://github.com/jwgmpi-wolff/windows-screen-recorder/releases/download/v1.1.0/install.exe)**.
+
+If you cloned this private repository, double-click `install.cmd`. It downloads
+the release installer with GitHub CLI, verifies its SHA-256 checksum, and starts
+setup. If needed, authenticate first:
+
+```powershell
+gh auth login
+.\install.ps1
+```
+
+The installer is also listed on the
+**[v1.1.0 release page](https://github.com/jwgmpi-wolff/windows-screen-recorder/releases/tag/v1.1.0)**.
+
 ## Supported systems
 
 - Windows 10 version 1903 or later and Windows 11
