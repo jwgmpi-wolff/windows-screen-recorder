@@ -1,0 +1,53 @@
+PortableScreenRecorder third-party notices
+
+FFmpeg
+  Project: https://ffmpeg.org/
+  Portable binary source: https://github.com/BtbN/FFmpeg-Builds
+  Build variant: win64 LGPL
+  License: GNU Lesser General Public License; the publish script copies the
+  license supplied by the binary distribution into LICENSES.
+  Corresponding source and build scripts are available from the URLs above.
+  FFmpeg is invoked as a separate executable and is not linked into this app.
+
+NAudio
+  Project: https://github.com/naudio/NAudio
+  License: MIT
+
+CommunityToolkit.Mvvm
+  Project: https://github.com/CommunityToolkit/dotnet
+  License: MIT
+
+Serilog and Serilog.Sinks.File
+  Project: https://github.com/serilog/serilog
+  License: Apache-2.0
+
+Microsoft.Extensions libraries
+  Project: https://github.com/dotnet/runtime
+  License: MIT
+
+System.Speech
+  Project: https://github.com/dotnet/runtime
+  Package: https://www.nuget.org/packages/System.Speech
+  License: MIT
+  Uses the local Microsoft Speech API installed with Windows.
+
+Whisper.net and whisper.cpp
+  Projects: https://github.com/sandrohanea/whisper.net
+            https://github.com/ggml-org/whisper.cpp
+  License: MIT
+  Runs the bundled Whisper model locally; no captured audio is uploaded.
+
+OpenAI Whisper small.en model
+  Project: https://github.com/openai/whisper
+  Model distribution: https://huggingface.co/ggerganov/whisper.cpp
+  License: MIT
+
+GitHub Copilot SDK
+  Project: https://github.com/github/copilot-sdk
+  License: MIT
+  Connects to GitHub Copilot only when the user submits a prompt.
+
+GitHub Copilot CLI
+  Project: https://github.com/github/copilot-cli
+  License: GitHub Copilot CLI License
+  Distributed unmodified as the runtime used by the Copilot response feature.

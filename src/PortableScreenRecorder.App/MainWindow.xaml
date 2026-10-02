@@ -1,0 +1,199 @@
+<Window x:Class="PortableScreenRecorder.App.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:automation="clr-namespace:System.Windows.Automation;assembly=PresentationCore"
+        mc:Ignorable="d"
+        Title="Portable Screen Recorder" Icon="Assets/AppIcon.ico"
+        MinHeight="680" MinWidth="900" Height="760" Width="1040"
+        Background="#F5F6F8">
+    <Window.Resources>
+        <Style TargetType="GroupBox">
+            <Setter Property="Margin" Value="0,0,0,12"/>
+            <Setter Property="Padding" Value="12"/>
+            <Setter Property="Background" Value="White"/>
+        </Style>
+        <Style TargetType="Button">
+            <Setter Property="Padding" Value="14,7"/>
+            <Setter Property="Margin" Value="0,0,8,0"/>
+            <Setter Property="MinWidth" Value="90"/>
+        </Style>
+        <Style TargetType="ComboBox">
+            <Setter Property="MinHeight" Value="30"/>
+            <Setter Property="Margin" Value="0,4,0,8"/>
+        </Style>
+        <Style TargetType="TextBox">
+            <Setter Property="MinHeight" Value="30"/>
+            <Setter Property="Margin" Value="0,4,0,8"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+        </Style>
+    </Window.Resources>
+    <DockPanel Margin="18">
+        <Border DockPanel.Dock="Top" Background="#20242A" CornerRadius="6" Padding="18,12" Margin="0,0,0,14">
+            <Grid>
+                <Grid.ColumnDefinitions><ColumnDefinition/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
+                <StackPanel>
+                    <TextBlock Text="Portable Screen Recorder" Foreground="White" FontSize="22" FontWeight="SemiBold"/>
+                    <TextBlock Text="Local DXGI screen capture with WASAPI audio" Foreground="#C8CDD3" Margin="0,3,0,0"/>
+                </StackPanel>
+                <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
+                    <Ellipse Width="14" Height="14" Fill="{StaticResource AccentBrush}" Margin="0,0,8,0"/>
+                    <TextBlock Text="{Binding State}" Foreground="White" FontWeight="Bold" FontSize="16"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <StackPanel DockPanel.Dock="Bottom">
+            <Border Background="#FFF4E5" BorderBrush="#FFD08A" BorderThickness="1" CornerRadius="4" Padding="10" Margin="0,6,0,10">
+                <TextBlock Text="{Binding StatusMessage}" TextWrapping="Wrap" automation:AutomationProperties.LiveSetting="Polite"/>
+            </Border>
+            <Grid>
+                <Grid.ColumnDefinitions><ColumnDefinition/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
+                <StackPanel Orientation="Horizontal">
+                    <Button Content="Start" Command="{Binding StartCommand}" automation:AutomationProperties.Name="Start recording"/>
+                    <Button Content="Pause" Command="{Binding PauseCommand}" automation:AutomationProperties.Name="Pause recording"/>
+                    <Button Content="Resume" Command="{Binding ResumeCommand}" automation:AutomationProperties.Name="Resume recording"/>
+                    <Button Content="Stop" Command="{Binding StopCommand}" automation:AutomationProperties.Name="Stop recording"/>
+                </StackPanel>
+                <StackPanel Grid.Column="1" Orientation="Horizontal">
+                    <Button Content="Open Recording" Command="{Binding OpenRecordingCommand}"/>
+                    <Button Content="Open Output Folder" Command="{Binding OpenOutputFolderCommand}"/>
+                    <Button Content="Open Logs" Command="{Binding OpenLogsCommand}" Margin="0"/>
+                </StackPanel>
+            </Grid>
+        </StackPanel>
+
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
+            <Grid>
+                <Grid.ColumnDefinitions><ColumnDefinition/><ColumnDefinition Width="16"/><ColumnDefinition/></Grid.ColumnDefinitions>
+                <StackPanel Grid.Column="0">
+                    <GroupBox Header="Capture source">
+                        <StackPanel>
+                            <TextBlock Text="Mode"/>
+                            <ComboBox ItemsSource="{Binding CaptureModes}" SelectedItem="{Binding CaptureMode}" IsEnabled="{Binding CanEditSettings}"
+                                      automation:AutomationProperties.Name="Capture mode"/>
+                            <TextBlock Text="Display"/>
+                            <ComboBox ItemsSource="{Binding Displays}" SelectedItem="{Binding SelectedDisplay}" DisplayMemberPath="Label"
+                                      IsEnabled="{Binding CanEditSettings}" automation:AutomationProperties.Name="Display"/>
+                            <WrapPanel>
+                                <Button Content="Refresh Displays" Command="{Binding RefreshDisplaysCommand}"/>
+                                <Button Content="Select Region (sets Region mode)" Command="{Binding SelectRegionCommand}"/>
+                            </WrapPanel>
+                            <TextBlock Text="{Binding RegionDescription}" Margin="0,8,0,0" TextWrapping="Wrap"/>
+                            <CheckBox Content="Include mouse pointer" IsChecked="{Binding IncludePointer}" IsEnabled="{Binding CanEditSettings}" Margin="0,10,0,0"/>
+                        </StackPanel>
+                    </GroupBox>
+
+                    <GroupBox Header="Audio sources">
+                        <StackPanel>
+                            <TextBlock Text="Audio mode"/>
+                            <ComboBox ItemsSource="{Binding AudioModes}" SelectedItem="{Binding AudioMode}" IsEnabled="{Binding CanEditSettings}"/>
+                            <TextBlock Text="Microphone"/>
+                            <ComboBox ItemsSource="{Binding Microphones}" SelectedItem="{Binding SelectedMicrophone}" DisplayMemberPath="Name" IsEnabled="{Binding CanEditSettings}"/>
+                            <TextBlock Text="Playback device"/>
+                            <ComboBox ItemsSource="{Binding PlaybackDevices}" SelectedItem="{Binding SelectedPlaybackDevice}" DisplayMemberPath="Name" IsEnabled="{Binding CanEditSettings}"/>
+                            <TextBlock Text="{Binding MicrophoneVolume, StringFormat=Microphone volume: {0:P0}}"/>
+                            <Slider Minimum="0" Maximum="2" Value="{Binding MicrophoneVolume}" IsEnabled="{Binding CanEditSettings}"/>
+                            <ProgressBar Minimum="0" Maximum="1" Value="{Binding MicrophoneLevel}" Height="8" Margin="0,4,0,10"/>
+                            <TextBlock Text="{Binding SystemVolume, StringFormat=System volume: {0:P0}}"/>
+                            <Slider Minimum="0" Maximum="2" Value="{Binding SystemVolume}" IsEnabled="{Binding CanEditSettings}"/>
+                            <ProgressBar Minimum="0" Maximum="1" Value="{Binding SystemLevel}" Height="8" Margin="0,4,0,0"/>
+                        </StackPanel>
+                    </GroupBox>
+
+                    <GroupBox Header="Speech recognition">
+                        <StackPanel>
+                            <TextBlock Text="Transcription mode"/>
+                            <ComboBox ItemsSource="{Binding TranscriptionModes}"
+                                      DisplayMemberPath="Label"
+                                      SelectedValuePath="Mode"
+                                      SelectedValue="{Binding TranscriptionMode}"
+                                      IsEnabled="{Binding CanEditSettings}"
+                                      automation:AutomationProperties.Name="Transcription mode"/>
+                            <TextBlock Text="Speech language (system audio uses local English Whisper)"/>
+                            <ComboBox ItemsSource="{Binding SpeechRecognizers}"
+                                      SelectedItem="{Binding SelectedSpeechRecognizer}"
+                                      DisplayMemberPath="Label"
+                                      IsEnabled="{Binding CanEditSettings}"
+                                      automation:AutomationProperties.Name="Speech recognition language"/>
+                            <TextBlock Text="Speech input"/>
+                            <ComboBox ItemsSource="{Binding SpeechInputSources}"
+                                      SelectedItem="{Binding SpeechInputSource}"
+                                      IsEnabled="{Binding CanEditSettings}"
+                                      automation:AutomationProperties.Name="Speech input"/>
+                            <TextBlock Text="{Binding MinimumSpeechConfidence, StringFormat=Minimum confidence: {0:P0}}"/>
+                            <Slider Minimum="0" Maximum="1" Value="{Binding MinimumSpeechConfidence}"
+                                    IsEnabled="{Binding CanEditSettings}" Margin="0,3,0,8"/>
+                            <Button Content="Open Speech-to-Text Window"
+                                    Command="{Binding OpenSpeechToTextCommand}"
+                                    HorizontalAlignment="Left"
+                                    automation:AutomationProperties.Name="Open speech to text window"/>
+                            <TextBlock Text="Live transcript" FontWeight="SemiBold" Margin="0,10,0,4"/>
+                            <TextBox Text="{Binding LiveTranscript}" IsReadOnly="True" AcceptsReturn="True"
+                                     TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" MaxHeight="100"
+                                     automation:AutomationProperties.Name="Live recording transcript"/>
+                            <TextBlock Text="System and mixed audio use local Whisper. Text appears after a short phrase-ending pause."
+                                       FontSize="11" Foreground="#5B6570" TextWrapping="Wrap"/>
+                        </StackPanel>
+                    </GroupBox>
+                </StackPanel>
+
+                <StackPanel Grid.Column="2">
+                    <GroupBox Header="Recording quality">
+                        <Grid>
+                            <Grid.ColumnDefinitions><ColumnDefinition/><ColumnDefinition Width="12"/><ColumnDefinition/></Grid.ColumnDefinitions>
+                            <StackPanel>
+                                <TextBlock Text="Frame rate"/>
+                                <ComboBox ItemsSource="{Binding FrameRates}" SelectedItem="{Binding FrameRate}" IsEnabled="{Binding CanEditSettings}"/>
+                            </StackPanel>
+                            <StackPanel Grid.Column="2">
+                                <TextBlock Text="Video bitrate (Mbps)"/>
+                                <TextBox Text="{Binding VideoBitrateMbps, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding CanEditSettings}"/>
+                            </StackPanel>
+                            <StackPanel Grid.ColumnSpan="3" Margin="0,70,0,0">
+                                <TextBlock Text="Audio bitrate (kbps)"/>
+                                <ComboBox ItemsSource="{Binding AudioBitrates}" SelectedItem="{Binding AudioBitrateKbps}" IsEnabled="{Binding CanEditSettings}"/>
+                            </StackPanel>
+                        </Grid>
+                    </GroupBox>
+
+                    <GroupBox Header="Output">
+                        <StackPanel>
+                            <TextBlock Text="Folder"/>
+                            <Grid>
+                                <Grid.ColumnDefinitions><ColumnDefinition/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
+                                <TextBox Text="{Binding OutputDirectory}" IsEnabled="{Binding CanEditSettings}"/>
+                                <Button Grid.Column="1" Content="Browse..." Command="{Binding BrowseOutputCommand}" Margin="8,4,0,8"/>
+                            </Grid>
+                            <TextBlock Text="Filename"/>
+                            <TextBox Text="{Binding FileName}" IsEnabled="{Binding CanEditSettings}"/>
+                        </StackPanel>
+                    </GroupBox>
+
+                    <GroupBox Header="Live status">
+                        <Grid>
+                            <Grid.ColumnDefinitions><ColumnDefinition/><ColumnDefinition/></Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition/><RowDefinition/><RowDefinition/><RowDefinition/><RowDefinition/><RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <TextBlock Text="Elapsed"/><TextBlock Grid.Column="1" Text="{Binding ElapsedText}" FontWeight="SemiBold"/>
+                            <TextBlock Grid.Row="1" Text="Resolution"/><TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding ResolutionText}"/>
+                            <TextBlock Grid.Row="2" Text="Frame rate"/><TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding ActiveFrameRate}"/>
+                            <TextBlock Grid.Row="3" Text="Dropped frames"/><TextBlock Grid.Row="3" Grid.Column="1" Text="{Binding DroppedFrames}"/>
+                            <TextBlock Grid.Row="4" Text="Estimated size"/><TextBlock Grid.Row="4" Grid.Column="1" Text="{Binding EstimatedSizeText}"/>
+                            <TextBlock Grid.Row="5" Text="Output"/><TextBlock Grid.Row="5" Grid.Column="1" Text="{Binding ActiveOutputPath}" TextTrimming="CharacterEllipsis"/>
+                        </Grid>
+                    </GroupBox>
+
+                    <GroupBox Header="Global hotkeys">
+                        <StackPanel>
+                            <TextBlock Text="{Binding StartStopHotkey, StringFormat=Start / stop: {0}}"/>
+                            <TextBlock Text="{Binding PauseResumeHotkey, StringFormat=Pause / resume: {0}}" Margin="0,5,0,0"/>
+                        </StackPanel>
+                    </GroupBox>
+                </StackPanel>
+            </Grid>
+        </ScrollViewer>
+    </DockPanel>
+</Window>

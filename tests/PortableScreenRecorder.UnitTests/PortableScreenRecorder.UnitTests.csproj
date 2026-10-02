@@ -1,0 +1,30 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0-windows10.0.19041.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="coverlet.collector" Version="6.0.4" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.14.1" />
+    <PackageReference Include="xunit" Version="2.9.3" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="3.1.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Using Include="Xunit" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\PortableScreenRecorder.Core\PortableScreenRecorder.Core.csproj" />
+    <ProjectReference Include="..\..\src\PortableScreenRecorder.Capture\PortableScreenRecorder.Capture.csproj" />
+    <ProjectReference Include="..\..\src\PortableScreenRecorder.Audio\PortableScreenRecorder.Audio.csproj" />
+    <ProjectReference Include="..\..\src\PortableScreenRecorder.Encoding\PortableScreenRecorder.Encoding.csproj" />
+    <ProjectReference Include="..\..\src\PortableScreenRecorder.Infrastructure\PortableScreenRecorder.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\src\PortableScreenRecorder.Transcription\PortableScreenRecorder.Transcription.csproj" />
+  </ItemGroup>
+
+</Project>

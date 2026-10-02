@@ -1,0 +1,10 @@
+bin/
+obj/
+publish/
+installer/output/
+.tools/
+Data/
+Recordings/
+*.user
+*.suo
+*.partial.mp4

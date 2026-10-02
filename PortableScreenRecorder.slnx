@@ -1,0 +1,15 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/PortableScreenRecorder.App/PortableScreenRecorder.App.csproj" />
+    <Project Path="src/PortableScreenRecorder.Audio/PortableScreenRecorder.Audio.csproj" />
+    <Project Path="src/PortableScreenRecorder.Capture/PortableScreenRecorder.Capture.csproj" />
+    <Project Path="src/PortableScreenRecorder.Core/PortableScreenRecorder.Core.csproj" />
+    <Project Path="src/PortableScreenRecorder.Encoding/PortableScreenRecorder.Encoding.csproj" />
+    <Project Path="src/PortableScreenRecorder.Infrastructure/PortableScreenRecorder.Infrastructure.csproj" />
+    <Project Path="src/PortableScreenRecorder.Transcription/PortableScreenRecorder.Transcription.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/PortableScreenRecorder.IntegrationTests/PortableScreenRecorder.IntegrationTests.csproj" />
+    <Project Path="tests/PortableScreenRecorder.UnitTests/PortableScreenRecorder.UnitTests.csproj" />
+  </Folder>
+</Solution>
