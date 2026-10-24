@@ -2,6 +2,20 @@
 
 PortableScreenRecorder is a local-only Windows desktop recorder for a single display, all attached displays, or a selected display region. It captures the pointer optionally, records microphone and/or Windows playback audio, supports pause/resume, and finalizes H.264/AAC MP4 files.
 
+<!-- project-downloads:start -->
+## APK and installer downloads
+
+| Package | Download | Source |
+| --- | --- | --- |
+| Windows installer | [install.exe](https://github.com/jwgmpi-wolff/windows-screen-recorder/releases/download/v1.1.0/install.exe) | v1.1.0 |
+
+Android may require approval to install apps from this download source. Debug APKs are labeled above. Windows executables that are not setup packages may require accompanying project files; follow the project-specific instructions below.
+
+- [Download the complete source ZIP](https://github.com/jwgmpi-wolff/windows-screen-recorder/archive/refs/heads/main.zip).
+- [Setup script: install.cmd](./install.cmd) (download and extract the complete source ZIP first).
+- [Setup script: install.ps1](./install.ps1) (download and extract the complete source ZIP first).
+<!-- project-downloads:end -->
+
 ## Install on Windows
 
 Download and run **[install.exe](https://github.com/jwgmpi-wolff/windows-screen-recorder/releases/download/v1.1.0/install.exe)**.
@@ -134,3 +148,9 @@ See [troubleshooting.md](docs/troubleshooting.md). Logs are under `Data\Logs` be
 ## Third-party software
 
 The application uses CommunityToolkit.Mvvm, Microsoft.Extensions, System.Speech, NAudio, Whisper.net/whisper.cpp, the OpenAI Whisper model, the GitHub Copilot SDK/CLI, Serilog, and a separately executed LGPL FFmpeg build. See [ThirdPartyNotices.txt](ThirdPartyNotices.txt) and [LICENSES](LICENSES).
+
+## Copyright
+
+Copyright (c) 2026 Jerry Wolff. See [COPYRIGHT](COPYRIGHT) for the scope of this
+notice. Existing licenses and third-party attribution remain unchanged; this
+notice does not grant additional permissions.
